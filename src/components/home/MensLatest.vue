@@ -10,8 +10,7 @@ const onSwiper = (swiper: any) => {
 }
 
 const mensCategoriesResp = await fetch('https://dummyjson.com/products/category/mens-shirts')
-const mensCategories = await mensCategoriesResp.json()
-console.log(mensCategories)
+const mensShirts = await mensCategoriesResp.json()
 </script>
 <template>
   <section class="section" id="men">
@@ -37,7 +36,7 @@ console.log(mensCategories)
             class="mySwiper"
             @swiper="onSwiper"
           >
-            <swiper-slide v-for="(product, index) in mensCategories.products" :key="index">
+            <swiper-slide v-for="(product, index) in mensShirts.products" :key="index">
               <div class="item">
                 <div class="thumb">
                   <div class="hover-content">
@@ -53,7 +52,7 @@ console.log(mensCategories)
                       </li>
                     </ul>
                   </div>
-                  <img src="@/assets/images/men-01.jpg" alt="" />
+                  <img :src="product.thumbnail" class="img-fluid" alt="" />
                 </div>
                 <div class="down-content d-flex">
                   <div>
