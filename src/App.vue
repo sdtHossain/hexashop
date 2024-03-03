@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import TheHeader from './components/layout/TheHeader.vue'
+import TheFooter from './components/layout/TheFooter.vue'
 </script>
 
 <template>
@@ -15,7 +16,17 @@ import TheHeader from './components/layout/TheHeader.vue'
     <TheHeader />
   </header>
 
-  <RouterView />
+  <router-view v-slot="{ Component }">
+    <suspense timeout="0">
+      <template #default>
+        <component :is="Component" :key="$route.fullPath"></component>
+      </template>
+      <template #fallback>Loading....</template>
+    </suspense>
+  </router-view>
+  <footer>
+    <TheFooter />
+  </footer>
 </template>
 
 <style scoped>
