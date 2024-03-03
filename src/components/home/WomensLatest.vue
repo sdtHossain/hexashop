@@ -8,6 +8,10 @@ const myswiper = ref()
 const onSwiper = (swiper: any) => {
   myswiper.value = swiper
 }
+
+const womensCategoriesResp = await fetch('https://dummyjson.com/products/category/womens-dresses')
+const womensDresses = await womensCategoriesResp.json()
+// console.log(mensCategories)
 </script>
 <template>
   <section class="section" id="women">
@@ -33,7 +37,7 @@ const onSwiper = (swiper: any) => {
             class="mySwiper"
             @swiper="onSwiper"
           >
-            <swiper-slide>
+            <swiper-slide v-for="(product, index) in womensDresses.products" :key="index">
               <div class="item">
                 <div class="thumb">
                   <div class="hover-content">
@@ -49,105 +53,14 @@ const onSwiper = (swiper: any) => {
                       </li>
                     </ul>
                   </div>
-                  <img src="@/assets/images/women-01.jpg" alt="" />
+                  <img :src="product.thumbnail" class="img-fluid" alt="" />
                 </div>
-                <div class="down-content">
-                  <h4>New Green Jacket</h4>
-                  <span>$75.00</span>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="item">
-                <div class="thumb">
-                  <div class="hover-content">
-                    <ul>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-eye"></i></a>
-                      </li>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-star"></i></a>
-                      </li>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-shopping-cart"></i></a>
-                      </li>
-                    </ul>
+                <div class="down-content d-flex">
+                  <div>
+                    <h4>{{ product.title }}</h4>
+                    <span>${{ product.price }}.00</span>
                   </div>
-                  <img src="@/assets/images/women-02.jpg" alt="" />
-                </div>
-                <div class="down-content">
-                  <h4>Classic Dress</h4>
-                  <span>$45.00</span>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="item">
-                <div class="thumb">
-                  <div class="hover-content">
-                    <ul>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-eye"></i></a>
-                      </li>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-star"></i></a>
-                      </li>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-shopping-cart"></i></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <img src="@/assets/images/women-03.jpg" alt="" />
-                </div>
-                <div class="down-content">
-                  <h4>Spring Collection</h4>
-                  <span>$130.00</span>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="item">
-                <div class="thumb">
-                  <div class="hover-content">
-                    <ul>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-eye"></i></a>
-                      </li>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-star"></i></a>
-                      </li>
-                      <li>
-                        <a href="single-product.html"><i class="fa fa-shopping-cart"></i></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <img src="@/assets/images/women-01.jpg" alt="" />
-                </div>
-                <div class="down-content">
-                  <h4>Classic Spring</h4>
-                  <span>$120.00</span>
-                  <ul class="stars">
+                  <ul class="stars d-flex">
                     <li><i class="fa fa-star"></i></li>
                     <li><i class="fa fa-star"></i></li>
                     <li><i class="fa fa-star"></i></li>
