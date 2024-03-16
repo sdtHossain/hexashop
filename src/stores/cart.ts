@@ -4,7 +4,10 @@ import { defineStore } from 'pinia'
 interface CartItem {
   id: number;
   title: string;
+  price: number;
   qty: number;
+  category: string;
+  thumbnail: string;
 }
 
 // Initialize your cart items as a ref with an empty array

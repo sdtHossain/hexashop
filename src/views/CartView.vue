@@ -3,6 +3,8 @@ import { useCartStore } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
 
 const { cartItems } = storeToRefs(useCartStore())
+
+const totalPrice = cartItems.value.reduce((a, b) => a.price * a.qty + b.price * b.qty)
 </script>
 <template>
   <div class="page-heading" id="top">
@@ -17,7 +19,7 @@ const { cartItems } = storeToRefs(useCartStore())
                     <div class="p-5">
                       <div class="d-flex justify-content-between align-items-center mb-5">
                         <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                        <h6 class="mb-0 text-muted">3 items</h6>
+                        <h6 class="mb-0 text-muted">{{ cartItems.length }} item(s)</h6>
                       </div>
                       <hr class="my-4" />
 
@@ -28,14 +30,14 @@ const { cartItems } = storeToRefs(useCartStore())
                       >
                         <div class="col-md-2 col-lg-2 col-xl-2">
                           <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
+                            :src="item.thumbnail"
                             class="img-fluid rounded-3"
                             alt="Cotton T-shirt"
                           />
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-3">
                           <h6 class="text-muted">Shirt</h6>
-                          <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                          <h6 class="text-black mb-0">{{ item.title }}</h6>
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                           <button
@@ -49,7 +51,7 @@ const { cartItems } = storeToRefs(useCartStore())
                             id="form1"
                             min="0"
                             name="quantity"
-                            value="1"
+                            :value="item.qty"
                             type="number"
                             class="form-control form-control-sm"
                           />
@@ -62,7 +64,7 @@ const { cartItems } = storeToRefs(useCartStore())
                           </button>
                         </div>
                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">€ 44.00</h6>
+                          <h6 class="mb-0">${{ item.qty * item.price }}.00</h6>
                         </div>
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                           <a href="#!" class="text-muted"><i class="fa fa-times"></i></a>
@@ -86,8 +88,8 @@ const { cartItems } = storeToRefs(useCartStore())
                       <hr class="my-4" />
 
                       <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase">items 3</h5>
-                        <h5>€ 132.00</h5>
+                        <h5 class="text-uppercase">item(s) {{ cartItems.length }}</h5>
+                        <h5>${{ totalPrice }}.00</h5>
                       </div>
 
                       <h5 class="text-uppercase mb-3">Shipping</h5>
