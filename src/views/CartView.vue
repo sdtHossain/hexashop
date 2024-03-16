@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useCartStore } from '@/stores/cart'
+import { storeToRefs } from 'pinia'
+
+const { cartItems } = storeToRefs(useCartStore())
+</script>
 <template>
   <div class="page-heading" id="top">
     <section class="h-100 h-custom" style="background-color: #d2c9ff">
@@ -16,7 +21,11 @@
                       </div>
                       <hr class="my-4" />
 
-                      <div class="row mb-4 d-flex justify-content-between align-items-center">
+                      <div
+                        v-for="(item, index) in cartItems"
+                        :key="index"
+                        class="row mb-4 d-flex justify-content-between align-items-center"
+                      >
                         <div class="col-md-2 col-lg-2 col-xl-2">
                           <img
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"

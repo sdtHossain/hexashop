@@ -48,15 +48,19 @@ const { cartItems } = storeToRefs(useCartStore())
                 </ul>
               </li>
               <li class="scroll-to-section"><a href="#explore">Explore</a></li>
-              <button type="button" class="btn btn-primary position-relative">
-                <i class="fa fa-shopping-cart"></i>
-                <span
-                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                >
-                  {{ cartItems.length }}
-                  <span class="visually-hidden">unread messages</span>
-                </span>
-              </button>
+              <li>
+                <router-link :to="{ name: 'cartView' }">
+                  <button type="button" class="btn btn-primary position-relative">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span
+                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    >
+                      {{ cartItems.length }}
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+                  </button>
+                </router-link>
+              </li>
             </ul>
             <a class="menu-trigger">
               <span>Menu</span>
