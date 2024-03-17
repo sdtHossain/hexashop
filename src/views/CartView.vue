@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 
 const { cartItems } = storeToRefs(useCartStore())
 
-const totalPrice = cartItems.value.reduce((a, b) => a.price * a.qty + b.price * b.qty)
+const totalAmountOfPrice = ref(0)
+const totalPrice = cartItems.value.forEach(
+  (obj) => (totalAmountOfPrice.value += obj.price * obj.qty)
+)
 </script>
 <template>
   <div class="page-heading" id="top">
@@ -89,7 +93,7 @@ const totalPrice = cartItems.value.reduce((a, b) => a.price * a.qty + b.price * 
 
                       <div class="d-flex justify-content-between mb-4">
                         <h5 class="text-uppercase">item(s) {{ cartItems.length }}</h5>
-                        <h5>${{ totalPrice }}.00</h5>
+                        <h5>${{ totalAmountOfPrice }}.00</h5>
                       </div>
 
                       <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -120,7 +124,7 @@ const totalPrice = cartItems.value.reduce((a, b) => a.price * a.qty + b.price * 
 
                       <div class="d-flex justify-content-between mb-5">
                         <h5 class="text-uppercase">Total price</h5>
-                        <h5>€ 137.00</h5>
+                        <h5>${{ totalAmountOfPrice + 5 }}.00</h5>
                       </div>
 
                       <button
