@@ -6,9 +6,29 @@ import { ref } from 'vue'
 const { cartItems } = storeToRefs(useCartStore())
 
 const totalAmountOfPrice = ref(0)
-const totalPrice = cartItems.value.forEach(
-  (obj) => (totalAmountOfPrice.value += obj.price * obj.qty)
-)
+const totalPrice = () => {
+  totalAmountOfPrice.value = 0
+  cartItems.value.forEach((obj) => (totalAmountOfPrice.value += obj.price * obj.qty))
+}
+totalPrice()
+
+const increaseQuantity = (item: Object) => {
+  const existingItemIndex = cartItems.value.findIndex((obj) => obj.id === item.id)
+
+  if (existingItemIndex !== -1) {
+    cartItems.value[existingItemIndex].qty++
+  }
+  totalPrice()
+}
+
+const decreaseQuantity = (item: Object) => {
+  const existingItemIndex = cartItems.value.findIndex((obj) => obj.id === item.id)
+
+  if (existingItemIndex !== -1) {
+    cartItems.value[existingItemIndex].qty--
+  }
+  totalPrice()
+}
 </script>
 <template>
   <div class="page-heading" id="top">
@@ -44,28 +64,30 @@ const totalPrice = cartItems.value.forEach(
                           <h6 class="text-black mb-0">{{ item.title }}</h6>
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button
-                            class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                          >
-                            <i class="fa fa-minus"></i>
-                          </button>
-
-                          <input
-                            id="form1"
-                            min="0"
-                            name="quantity"
-                            :value="item.qty"
-                            type="number"
-                            class="form-control form-control-sm"
-                          />
-
-                          <button
-                            class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                          >
-                            <i class="fa fa-plus"></i>
-                          </button>
+                          <div class="quantity buttons_added">
+                            <input
+                              type="button"
+                              @click="decreaseQuantity(item)"
+                              value="-"
+                              class="minus"
+                            /><input
+                              type="number"
+                              step="1"
+                              min="1"
+                              max=""
+                              name="quantity"
+                              :value="item.qty"
+                              title="Qty"
+                              class="input-text qty text"
+                              size="4"
+                              pattern=""
+                            /><input
+                              type="button"
+                              @click="increaseQuantity(item)"
+                              value="+"
+                              class="plus"
+                            />
+                          </div>
                         </div>
                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                           <h6 class="mb-0">${{ item.qty * item.price }}.00</h6>
