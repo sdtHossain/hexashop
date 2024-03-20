@@ -24,7 +24,7 @@ const increaseQuantity = (item: Object) => {
 const decreaseQuantity = (item: Object) => {
   const existingItemIndex = cartItems.value.findIndex((obj) => obj.id === item.id)
 
-  if (existingItemIndex !== -1) {
+  if (existingItemIndex !== -1 && cartItems.value[existingItemIndex].qty > 1) {
     cartItems.value[existingItemIndex].qty--
   }
   totalPrice()
