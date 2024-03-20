@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { useCartStore } from '@/stores/cart'
+import { storeToRefs } from 'pinia'
+
 const allProductsResp = await fetch('https://dummyjson.com/products')
 const allProducts = await allProductsResp.json()
 console.log(allProducts)
+
+const { cartItemsAddFunc } = useCartStore()
+const { cartItems, numberOfOrder } = storeToRefs(useCartStore())
 </script>
 <template>
   <!-- ***** Main Banner Area Start ***** -->
@@ -53,7 +59,7 @@ console.log(allProducts)
                     <a href="single-product.html"><i class="fa fa-star"></i></a>
                   </li>
                   <li>
-                    <a href="single-product.html"><i class="fa fa-shopping-cart"></i></a>
+                    <a @click="cartItemsAddFunc(item)"><i class="fa fa-shopping-cart"></i></a>
                   </li>
                 </ul>
               </div>

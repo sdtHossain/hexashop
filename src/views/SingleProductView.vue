@@ -123,7 +123,7 @@ const { cartItems, numberOfOrder } = storeToRefs(useCartStore())
             <div class="total">
               <h4>Total: ${{ singleProduct.price * numberOfOrder }}.00</h4>
               <div class="main-border-button">
-                <a href="#" @click="cartItemsAddFunc(singleProduct)">Add To Cart</a>
+                <a @click="cartItemsAddFunc(singleProduct)">Add To Cart</a>
               </div>
             </div>
           </div>
