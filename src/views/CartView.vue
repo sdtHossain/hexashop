@@ -29,6 +29,10 @@ const decreaseQuantity = (item: Object) => {
   }
   totalPrice()
 }
+
+const removeItemFromCartItems = (item: { id: number }) => {
+  cartItems.value = cartItems.value.filter((obj) => obj.id !== item.id)
+}
 </script>
 <template>
   <div class="page-heading" id="top">
@@ -93,7 +97,9 @@ const decreaseQuantity = (item: Object) => {
                           <h6 class="mb-0">${{ item.qty * item.price }}.00</h6>
                         </div>
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <a href="#!" class="text-muted"><i class="fa fa-times"></i></a>
+                          <a class="text-muted" @click="removeItemFromCartItems(item)">
+                            <i class="fa fa-times"></i>
+                          </a>
                         </div>
                       </div>
 
