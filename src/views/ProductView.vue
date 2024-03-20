@@ -60,8 +60,8 @@ console.log(allProducts)
               <img :src="item.thumbnail" class="card-img-top h-100 object-fit-cover" alt="" />
             </div>
             <div class="down-content card-footer">
-              <h4>Classic Spring</h4>
-              <span>$120.00</span>
+              <h4>{{ item.title }}</h4>
+              <span>${{ item.price }}.00</span>
               <ul class="stars">
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
