@@ -19,8 +19,36 @@ export const useCartStore = defineStore('cart', () => {
   // const cartItems = ref([])
   const cartItems = ref<CartItem[]>([]);
 
+  const numberOfOrder = ref(1)
+
+
+
+  const cartItemsAddFunc = (item: {
+    id: number
+    title: string
+    price: number
+    category: string
+    thumbnail: string
+  }) => {
+    const existingItem = cartItems.value.find((obj) => obj.id === item.id)
+  
+    if (!existingItem) {
+      cartItems.value.push({
+        id: item.id,
+        title: item.title,
+        qty: numberOfOrder.value,
+        price: item.price,
+        category: item.category,
+        thumbnail: item.thumbnail
+      })
+    } else {
+      alert('You already added the product to cart')
+    }
+    console.log(cartItems.value)
+  }
+
 
   
 
-  return { totalCartItems, cartItems }
+  return { totalCartItems, cartItems, numberOfOrder, cartItemsAddFunc }
 })

@@ -13,33 +13,8 @@ const singleProductResp = await fetch(`https://dummyjson.com/products/${route.qu
 singleProduct.value = await singleProductResp.json()
 console.log(singleProduct)
 
-const numberOfOrder = ref(1)
-
-const { cartItems } = storeToRefs(useCartStore())
-
-const cartItemsAddFunc = (item: {
-  id: number
-  title: string
-  price: number
-  category: string
-  thumbnail: string
-}) => {
-  const existingItem = cartItems.value.find((obj) => obj.id === item.id)
-
-  if (!existingItem) {
-    cartItems.value.push({
-      id: item.id,
-      title: item.title,
-      qty: numberOfOrder.value,
-      price: item.price,
-      category: item.category,
-      thumbnail: item.thumbnail
-    })
-  } else {
-    alert('You already added the product to cart')
-  }
-  console.log(cartItems.value)
-}
+const { cartItemsAddFunc } = useCartStore()
+const { cartItems, numberOfOrder } = storeToRefs(useCartStore())
 
 // const cartItemsAddFunc = (item) => {
 //   const existingItem = cartItems.value.find((obj) => obj.id === item.id)
