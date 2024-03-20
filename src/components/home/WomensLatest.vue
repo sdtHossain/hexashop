@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import { Navigation } from 'swiper/modules'
+import { useCartStore } from '@/stores/cart'
+import { storeToRefs } from 'pinia'
 
 const myswiper = ref()
 const onSwiper = (swiper: any) => {
@@ -12,6 +14,9 @@ const onSwiper = (swiper: any) => {
 const womensCategoriesResp = await fetch('https://dummyjson.com/products/category/womens-dresses')
 const womensDresses = await womensCategoriesResp.json()
 // console.log(mensCategories)
+
+const { cartItemsAddFunc } = useCartStore()
+const { cartItems, numberOfOrder } = storeToRefs(useCartStore())
 </script>
 <template>
   <section class="section" id="women">
@@ -49,7 +54,9 @@ const womensDresses = await womensCategoriesResp.json()
                         <a href="single-product.html"><i class="fa fa-star"></i></a>
                       </li>
                       <li>
-                        <a href="single-product.html"><i class="fa fa-shopping-cart"></i></a>
+                        <a @click="cartItemsAddFunc(product)"
+                          ><i class="fa fa-shopping-cart"></i
+                        ></a>
                       </li>
                     </ul>
                   </div>
