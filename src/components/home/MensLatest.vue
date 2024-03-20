@@ -47,13 +47,21 @@ const { cartItems, numberOfOrder } = storeToRefs(useCartStore())
                   <div class="hover-content">
                     <ul>
                       <li>
-                        <a href="single-product.html"><i class="fa fa-eye"></i></a>
+                        <router-link
+                          :to="{
+                            name: 'singleProduct',
+                            params: { productName: product.title },
+                            query: { prodId: product.id }
+                          }"
+                          class="cursor-pointer"
+                          ><i class="fa fa-eye"></i
+                        ></router-link>
                       </li>
                       <li>
-                        <a href="single-product.html"><i class="fa fa-star"></i></a>
+                        <a class="cursor-pointer"><i class="fa fa-star"></i></a>
                       </li>
                       <li>
-                        <a @click="cartItemsAddFunc(product)"
+                        <a class="cursor-pointer" @click="cartItemsAddFunc(product)"
                           ><i class="fa fa-shopping-cart"></i
                         ></a>
                       </li>
